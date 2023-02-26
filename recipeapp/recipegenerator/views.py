@@ -20,3 +20,6 @@ class SearchResultsView(ListView):
         return Recipe.objects.filter(
             Q(name__icontains=query) | Q(ingredients__icontains=query) | Q(proteinLevel__icontains = query) | Q(fatLevel__icontains = query)
         )
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
