@@ -2,11 +2,14 @@ from django.db import models
 
 # Create your models here.
 
-class Recipe():
-    def __init__(self, name = "", servings = 0, ingredients = []):
-        self.name = name
-        self.servings = servings
-        self.ingredients = ingredients
+class Recipe(models.Model):
+    name = models.CharField(max_length=255)
+    ingredients = models.CharField(max_length=600)
+    proteinLevel = models.CharField(max_length=255)
+    fatLevel = models.CharField(max_length=255)
 
-    def getName(self):
+    class Meta:
+          verbose_name_plural = "recipies"
+
+    def __str__(self):
         return self.name
