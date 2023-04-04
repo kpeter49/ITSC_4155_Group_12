@@ -47,7 +47,7 @@ class Ingredient(models.Model):
         return self.carbs / self.amount
     
 class Restriction(models.Model):
-    id = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4().hex[:5].upper())
+    id = models.AutoField(primary_key=True)
     ingredientId = models.IntegerField()
     userName = models.CharField(max_length=255)
 
