@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import json
 
 # Create your models here.
 
@@ -15,6 +16,9 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
     
+    def get_ingredients(self):
+        return json.loads(self.ingredients)
+    
 class Ingredient(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=255)
@@ -29,6 +33,18 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_calories_per_gram(self):
+        return self.calories / self.amount
+    
+    def get_protein_per_gram(self):
+        return self.protein / self.amount
+    
+    def get_fat_per_gram(self):
+        return self.fat / self.amount
+    
+    def get_carbs_per_gram(self):
+        return self.carbs / self.amount
     
 class Restriction(models.Model):
     id = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4().hex[:5].upper())
