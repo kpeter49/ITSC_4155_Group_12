@@ -1,6 +1,46 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <p>content</p>
+
+<div class="presetselector">
+    <div class="presetdropdown">
+
+    </div>
+    <div class="presetlist">
+
+    </div>
+</div>
+<div class="ingredientselector">
+    <div class="resultlist">
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Add an Ingredient:</label>
+            <form class="form-group" action="" method="post">
+                {% csrf_token %}
+
+                <div class="list-group">
+                    {% for ingredient in all_ingredients %}
+                    <button type="submit" class="list-group-item list-group-item-action"  name="ingredientadd" id="ingredientadd" value={{ingredient.id}}>{{ingredient.name}}</button>
+                    {% endfor %}
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="ingredientlist">
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Available Ingredients:</label>
+            <form class="form-group" action="" method="post">
+                {% csrf_token %}
+
+                <div class="list-group">
+                    {% for ingredient in selected_ingredients %}
+                    <button type="submit" class="list-group-item list-group-item-action"  name="ingredientremove" id="ingredientremove" value={{ingredient.ingredientId}}>{{ingredient.ingredientName}}</button>
+                    {% endfor %}
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
