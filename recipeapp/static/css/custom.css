@@ -1,0 +1,7 @@
+.rg_navbar {
+    padding-left: 20px;
+}
+
+.rg_navitem {
+    flex-direction: row-reverse;
+}

@@ -1,16 +1,10 @@
-{% if user.is_authenticated %}
-    <p>User: {{ user.get_username }}</p>
-    <p><a href="{% url 'profile' %}">Profile</a></p>
+{% extends "base_generic.html" %}
 
-    <p><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></p>
-{% else %}
-    <p><a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
-    <p><a href="{% url 'signup' %}?next={{ request.path }}">Create a new account</a></p>
-{% endif %}
+{% block content %}
+    <h1>Search</h1>
 
+    <form action="{% url 'search_results' %}" method="get">
+        <input name="food_search" type="text" placeholder="Search...">
+    </form>
 
-<h1>Search</h1>
-
-<form action="{% url 'search_results' %}" method="get">
-    <input name="food_search" type="text" placeholder="Search...">
-</form>
+{% endblock %}
