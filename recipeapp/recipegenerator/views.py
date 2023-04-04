@@ -5,6 +5,10 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
 
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+
 from .models import Recipe
 
 
@@ -23,3 +27,8 @@ class SearchResultsView(ListView):
 
 class ProfileView(TemplateView):
     template_name = 'profile.html'
+
+class SignUpView(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"

@@ -5,6 +5,7 @@
     <p><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></p>
 {% else %}
     <p><a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
+    <p><a href="{% url 'signup' %}?next={{ request.path }}">Create a new account</a></p>
 {% endif %}
 
 
