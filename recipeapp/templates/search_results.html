@@ -2,9 +2,7 @@
 
 <ul>
   {% for recipe in object_list %}
-    <h2>{{ recipe.name }}</h2>
-    <li style="margin-left: 25px;">{{recipe.proteinLevel}}</li>
-    <li style="margin-left: 25px;">{{recipe.fatLevel}}</li>
+    <h2>{{ recipe.recipename }}</h2>
     <li style="margin-left: 25px;">{{recipe.ingredients}}</li>
   {% endfor %}
 </ul>

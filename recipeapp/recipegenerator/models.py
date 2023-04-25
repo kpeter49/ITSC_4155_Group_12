@@ -90,7 +90,7 @@ class RestrictionPresetIngredient(models.Model):
         return self.name
     
 class Recipes(models.Model):
-    id = models.IntegerField(blank=True, null=True)
+    id = models.IntegerField(primary_key=True)
     recipename = models.TextField(db_column='RecipeName', blank=True, null=True)  # Field name made lowercase.
     preptime = models.TextField(db_column='PrepTime', blank=True, null=True)  # Field name made lowercase.
     cooktime = models.TextField(db_column='CookTime', blank=True, null=True)  # Field name made lowercase.

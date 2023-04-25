@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .models import Recipe, Ingredient, Restriction
+from .models import Recipe, Ingredient, Restriction, Recipes
 
 
 class HomePageView(TemplateView):
@@ -17,12 +17,12 @@ class HomePageView(TemplateView):
 
 
 class SearchResultsView(ListView):
-    model = Recipe
+    model = Recipes
     template_name = 'search_results.html'
     def get_queryset(self): #
         query = self.request.GET.get('food_search')
-        return Recipe.objects.filter(
-            Q(name__icontains=query) | Q(ingredients__icontains=query) | Q(proteinLevel__icontains = query) | Q(fatLevel__icontains = query)
+        return Recipes.objects.filter(
+            Q(recipename__icontains=query) | Q(ingredients__icontains=query)
         )
 
 class ProfileView(TemplateView):
