@@ -1,8 +1,22 @@
-<h1>Search Results</h1>
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1 class="rg_resultheader">Search Results:</h1>
 
 <ul>
   {% for recipe in object_list %}
-    <h2>{{ recipe.recipename }}</h2>
-    <li style="margin-left: 25px;">{{recipe.ingredients}}</li>
+    <div class="col-sm-6 rg_card">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ recipe.recipename }}</h5>
+          <p class="card-text ">{{recipe.timing}}</p>
+          <p class="card-text">{{recipe.ingredients}}</p>
+          <a href="{% url 'recipe' %}?id={{ recipe.id }}" class="btn btn-primary">View More</a>
+        </div>
+      </div>
+    </div>
   {% endfor %}
 </ul>
+
+{% endblock %}

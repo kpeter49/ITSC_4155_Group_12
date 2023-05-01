@@ -5,3 +5,15 @@
 .rg_navitem {
     flex-direction: row-reverse;
 }
+
+.rg_card {
+    padding-bottom: 20px;
+}
+
+.rg_resultheader {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.rg_recipecards {
+}

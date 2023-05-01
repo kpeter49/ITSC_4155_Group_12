@@ -45,3 +45,13 @@ def restrictionsview(request):
     for item in selectedIds:
         selectedIngredients.append({'ingredientId':item.ingredientId, 'ingredientName':Ingredient.objects.get(id=item.ingredientId).name})
     return render(request, 'restrictions.html', {'all_ingredients' : Ingredient.objects.all(), 'selected_ingredients': selectedIngredients})
+
+def recipeview(request):
+    ingredients = Recipes.objects.get(id=request.GET.get('id')).ingredients.split(',')
+    nutritionfacts = Recipes.objects.get(id=request.GET.get('id')).nutrition.split(',')
+    instructions = Recipes.objects.get(id=request.GET.get('id')).directions.split('.')
+    return render(request, 'recipe.html', {'id' : request.GET.get('id'),
+                                           'recipe': Recipes.objects.get(id=request.GET.get('id')),
+                                           'ingredients': ingredients,
+                                           'nutritionfacts': nutritionfacts,
+                                           'instructions': instructions})

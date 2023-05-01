@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+<h1>{{recipe.recipename}}</h1>
+<p>{{recipe.timing}}</p>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Change Serving Amount
+</button>
+
+<div>
+    <div class="row">
+        <div class="col-sm-6 rg_recipecards">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ingredients:</h5>
+              {% for ingredient in ingredients %}
+              <li class="card-text">{{ingredient}}</li>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 rg_recipecards">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Nutrition Facts</h5>
+              {% for fact in nutritionfacts %}
+              <li class="card-text">{{fact}}</li>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Instructions</h5>
+        {% for instruction in instructions %}
+            <p class="card-text">{{instruction}}</p>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

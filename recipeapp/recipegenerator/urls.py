@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from .views import HomePageView, SearchResultsView, ProfileView, SignUpView, restrictionsview
+from .views import HomePageView, SearchResultsView, ProfileView, SignUpView, restrictionsview, recipeview
 
 urlpatterns = [
     path("search/", SearchResultsView.as_view(), name="search_results"),
@@ -8,5 +8,6 @@ urlpatterns = [
     path("restrictions", restrictionsview, name="restrictions"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/profile/', ProfileView.as_view(), name="profile"),
-    path("signup/", SignUpView.as_view(), name="signup")
+    path("signup/", SignUpView.as_view(), name="signup"),
+    path("recipe/", recipeview, name='recipe')
 ]
