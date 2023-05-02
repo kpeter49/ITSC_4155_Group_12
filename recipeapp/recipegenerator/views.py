@@ -11,6 +11,8 @@ from django.views import generic
 
 from .models import Recipe, Ingredient, Restriction, Recipes
 
+import re
+
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -46,12 +48,39 @@ def restrictionsview(request):
         selectedIngredients.append({'ingredientId':item.ingredientId, 'ingredientName':Ingredient.objects.get(id=item.ingredientId).name})
     return render(request, 'restrictions.html', {'all_ingredients' : Ingredient.objects.all(), 'selected_ingredients': selectedIngredients})
 
+def __countList(lst1, lst2):
+    return [sub[item] for item in range(len(lst2))
+                      for sub in [lst1, lst2]]
+
 def recipeview(request):
+    servingMultiplier = 1
+    if request.method == 'POST':
+        if request.POST.get('multiplier'):
+            servingMultiplier = int(request.POST.get('multiplier'))
+
     ingredients = Recipes.objects.get(id=request.GET.get('id')).ingredients.split(',')
+    for j, fact in enumerate(ingredients):
+        nums = re.findall(r'\d+', fact)
+        if nums:
+            nums[0] = str(int(nums[0]) * servingMultiplier)
+        segments = re.sub(r'\d+', '~', fact).split('~')
+        fact = ''.join(__countList(segments, nums))
+        ingredients[j] = fact + segments[-1]
+
     nutritionfacts = Recipes.objects.get(id=request.GET.get('id')).nutrition.split(',')
+    for j, fact in enumerate(nutritionfacts):
+        nums = re.findall(r'\d+', fact)
+        for i, num in enumerate(nums):
+            nums[i] = str(int(num) * servingMultiplier)
+        segments = re.sub(r'\d+', '~', fact).split('~')
+        fact = ''.join(__countList(segments, nums))
+        nutritionfacts[j] = fact + '%'
+
     instructions = Recipes.objects.get(id=request.GET.get('id')).directions.split('.')
     return render(request, 'recipe.html', {'id' : request.GET.get('id'),
                                            'recipe': Recipes.objects.get(id=request.GET.get('id')),
                                            'ingredients': ingredients,
                                            'nutritionfacts': nutritionfacts,
-                                           'instructions': instructions})
+                                           'instructions': instructions,
+                                           'multiplier': servingMultiplier})
+

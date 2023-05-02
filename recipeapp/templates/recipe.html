@@ -6,9 +6,24 @@
 <h1>{{recipe.recipename}}</h1>
 <p>{{recipe.timing}}</p>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Change Serving Amount
-</button>
+<div>
+    <h5>Enter amount to multiply serving size by:</h5>
+    <div class="input-group mb-3">
+        <form class="form-group" action="" method="post">
+            {% csrf_token %}
+
+            <label for="multiplier">Enter an amount to multiply serving size by: </label>
+            <input id="multiplier" type="text" name="multiplier" value="{{ amount }}">
+            <input type="submit" value="Save">
+        </form>
+    </div>
+</div>
+
+{% if multiplier != 1 %}
+<div class="alert alert-primary" role="alert">
+    The servings in this recipe are currently being multiplied by {{multiplier}}
+</div>
+{% endif %} 
 
 <div>
     <div class="row">
