@@ -6,6 +6,11 @@
 <h1>{{recipe.recipename}}</h1>
 <p>{{recipe.timing}}</p>
 
+<form class="form-group" action="" method="post">
+    {% csrf_token %}
+    <button type="submit" class="list-group-item list-group-item-action"  name="save" id="save" value=1>Save Recipe</button>
+</form>
+
 <div>
     <h5>Enter amount to multiply serving size by:</h5>
     <div class="input-group mb-3">

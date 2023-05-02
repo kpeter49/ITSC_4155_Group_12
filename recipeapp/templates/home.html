@@ -1,10 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Search</h1>
+    <h1 class="rg_searchheader">Find a Recipe</h1>
 
-    <form action="{% url 'search_results' %}" method="get">
-        <input name="food_search" type="text" placeholder="Search...">
+    <form class="rg_searchheader" action="{% url 'search_results' %}" method="get">
+        <input class="rg_searchheader form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" name="food_search" type="text" placeholder="Search...">
     </form>
 
 {% endblock %}

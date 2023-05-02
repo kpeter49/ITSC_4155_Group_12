@@ -109,3 +109,12 @@ class Recipes(models.Model):
     class Meta:
         managed = False
         db_table = 'recipes'
+
+class Savedrecipes(models.Model):
+    id = models.AutoField(primary_key=True)
+    recipeid = models.IntegerField(blank=True, null=True)
+    username = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'savedrecipes'

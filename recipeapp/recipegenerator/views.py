@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .models import Recipe, Ingredient, Restriction, Recipes
+from .models import Recipe, Ingredient, Restriction, Recipes, Savedrecipes
 
 import re
 
@@ -42,6 +42,13 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+def profileview(request):
+    savedrecipes = Savedrecipes.objects.filter(username=request.user.username)
+    recipes = []
+    for recipe in savedrecipes:
+        recipes.append(Recipes.objects.get(id=recipe.recipeid))
+    return render(request, 'profile.html', {'savedrecipes': recipes})
+
 def restrictionsview(request):
     if request.method == 'POST':
         if request.POST.get('ingredientadd'):
@@ -64,6 +71,8 @@ def recipeview(request):
     if request.method == 'POST':
         if request.POST.get('multiplier'):
             servingMultiplier = int(request.POST.get('multiplier'))
+        if request.POST.get('save'):
+            Savedrecipes.objects.create(recipeid=request.GET.get('id'), username=request.user.username)
 
     ingredients = Recipes.objects.get(id=request.GET.get('id')).ingredients.split(',')
     for j, fact in enumerate(ingredients):
