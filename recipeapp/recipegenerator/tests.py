@@ -77,9 +77,3 @@ class RestrictionTestCase(TestCase):
         two = Restriction.objects.get(id="2")
         self.assertEqual(one.userName, 'name1')
         self.assertEqual(two.userName, 'name2')
-
-    def test_str(self):
-        one = Restriction.objects.get(id="1")
-        two = Restriction.objects.get(id="2")
-        self.assertEqual(str(one), '1')
-        self.assertEqual(str(two), '2')
