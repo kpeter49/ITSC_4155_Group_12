@@ -23,8 +23,15 @@ class SearchResultsView(ListView):
     template_name = 'search_results.html'
     def get_queryset(self): #
         query = self.request.GET.get('food_search')
+        filtersQ = Q(recipename__icontains=query) | Q(ingredients__icontains=query)
+        selectedIds = Restriction.objects.filter(userName = self.request.user.username)
+        selectedIngredients = []
+        for item in selectedIds:
+            selectedIngredients.append(Ingredient.objects.get(id=item.ingredientId).name)
+        for restriction in selectedIngredients:
+            filtersQ = filtersQ & ~Q(ingredients__icontains=restriction)
         return Recipes.objects.filter(
-            Q(recipename__icontains=query) | Q(ingredients__icontains=query)
+            filtersQ
         )
 
 class ProfileView(TemplateView):
